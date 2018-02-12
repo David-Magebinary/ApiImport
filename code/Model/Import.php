@@ -31,6 +31,16 @@ class Danslo_ApiImport_Model_Import
     const BEHAVIOR_STOCK = 'stock';
 
     /**
+     * Custom import behavior: Only import customer
+     */
+    const BEHAVIOR_NEW_CUSTOMER = 'customer_new';
+
+    /**
+     * Custom import behavior: Only import address
+     */
+    const BEHAVIOR_ADDRESS = 'address';
+
+    /**
      * Special attribute set import behavior.
      */
     const BEHAVIOR_DELETE_IF_NOT_EXIST = 'delete_if_not_exist';
@@ -80,8 +90,10 @@ class Danslo_ApiImport_Model_Import
             array(
                 Mage::helper('importexport')->__(
                     'Checked rows: %d, checked entities: %d, invalid rows: %d, total errors: %d',
-                    $this->getProcessedRowsCount(), $this->getProcessedEntitiesCount(),
-                    $this->getInvalidRowsCount(), $this->getErrorsCount()
+                    $this->getProcessedRowsCount(),
+                    $this->getProcessedEntitiesCount(),
+                    $this->getInvalidRowsCount(),
+                    $this->getErrorsCount()
                 ),
                 Mage::helper('importexport')->__('Import has been done successfuly.')
             )

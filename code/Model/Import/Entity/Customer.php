@@ -51,7 +51,16 @@ class Danslo_ApiImport_Model_Import_Entity_Customer
             'entity_model'      => $this
         ));
 
-        parent::_importData();
+        if (Mage_ImportExport_Model_Import::BEHAVIOR_DELETE == $this->getBehavior()) {
+            $this->_deleteCustomers();
+        } else if (Danslo_ApiImport_Model_Import::BEHAVIOR_CUSTOMER) {
+            $this->_saveCustomers();
+        } else if (Danslo_ApiImport_Model_Import::BEHAVIOR_ADDRESS){
+            $this->_addressEntity->importData();
+        } else {
+            $this->_saveCustomers();
+            $this->_addressEntity->importData();
+        }
 
         Mage::dispatchEvent($this->_eventPrefix . '_after_import', array(
             'entities'      => $this->_newCustomers,
